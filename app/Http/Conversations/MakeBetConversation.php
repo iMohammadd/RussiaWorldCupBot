@@ -43,6 +43,8 @@ class MakeBetConversation extends Conversation
         ]);*/
 
         $this->say($this->bot->getUser()->getFirstName());
+        $this->say($this->bot->getUser()->getId());
+        //$this->say($this->bot->getUser()->getInfo());
 
         $matchs = Match::all();
 
