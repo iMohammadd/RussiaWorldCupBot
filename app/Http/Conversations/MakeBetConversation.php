@@ -2,6 +2,7 @@
 
 namespace App\Http\Conversations;
 
+use App\Profile;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\BotMan\Messages\Outgoing\Question;
@@ -11,10 +12,15 @@ class MakeBetConversation extends Conversation
 
     public function register_profile()
     {
-        $user = $this->bot->getUser();
-        return $this->ask('how are u?', function (Answer $answer) {
-            $this->bot->reply( $answer->getText());
-        });
+
+        $user = $this->bot->getUsername();
+        $id = $this->bot->getId();
+
+        $this->bot->reply("hi " . $user . " " . $id);
+        /*Profile::firstOrCreate([
+            'user'  => $user,
+            'chat_id'   => $id
+        ]);*/
 
     }
     /**
