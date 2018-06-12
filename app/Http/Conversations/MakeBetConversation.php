@@ -42,7 +42,7 @@ class MakeBetConversation extends Conversation
             'chat_id'   => $this->id
         ]);*/
 
-        $this->say($this->bot->getUser());
+        $this->say($this->bot->getUser()->getFirstName());
 
         $matchs = Match::all();
 
