@@ -17,7 +17,7 @@ class BotManController extends Controller
         $botman = app('botman');
 
         $botman->hears('/start', function () use ($botman) {
-            $this->startBet($botman);
+            $botman->reply("hi dude");
         });
 
         $botman->listen();
