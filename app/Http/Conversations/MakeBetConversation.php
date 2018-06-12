@@ -2,6 +2,7 @@
 
 namespace App\Http\Conversations;
 
+use App\Bet;
 use App\Match;
 use App\Profile;
 use App\Team;
@@ -90,7 +91,8 @@ class MakeBetConversation extends Conversation
 
     public function submitBet()
     {
-        $this->profile->bet->create([
+        Bet::create([
+            'profile'   =>  $this->profile->id,
             'match_id'  =>  $this->match->id,
             'result_one'    =>  $this->result_one,
             'result_two'    =>  $this->result_two
