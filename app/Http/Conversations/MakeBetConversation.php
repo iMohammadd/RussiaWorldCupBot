@@ -4,6 +4,7 @@ namespace App\Http\Conversations;
 
 use App\Match;
 use App\Profile;
+use App\Team;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
@@ -46,7 +47,7 @@ class MakeBetConversation extends Conversation
         $matchs = Match::all();
 
         foreach ($matchs as $match) {
-            $this->matches[] = Button::create($match->team_one . " - " . $match->team_two)->value($match->id);
+            $this->matches[] = Button::create(Team::findOrFail($match->team_one) . " - " . Team::findOrFail($match->team_two))->value($match->id);
         }
         
         $question = Question::create("یه مسابقه انتخاب کن")
