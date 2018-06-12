@@ -21,30 +21,27 @@ class MakeBetConversation extends Conversation
     public $teams = [];
     public $result_one, $result_two;
 
-    public function register_profile()
-    {
-
-
-
-
-            
-            return $this->askMatch();
-
-    }
-
-    public function askMatch()
+    public function init()
     {
         $this->name = $this->bot->getUser()->getFirstName();
         $this->user = "none";
         $this->id = $this->bot->getUser()->getId();
 
-        $this->profile = Profile::firstOrCreate([
-            'name'  => $this->name,
-            'user'  => $this->user,
-            'chat_id'   => $this->id
-        ]);
 
+        try {
+            $this->profile = Profile::whereChatId($this->id)->firstOrFail();
+        } catch (\Exception $e) {
+            $this->profile = Profile::Create([
+                'name'  => $this->name,
+                'user'  => $this->user,
+                'chat_id'   => $this->id
+            ]);
+        }
+        return $this->askMatch();
+    }
 
+    public function askMatch()
+    {
         $matchs = Match::all();
 
         foreach ($matchs as $match) {
@@ -71,7 +68,7 @@ class MakeBetConversation extends Conversation
 
     public function askResultOne()
     {
-        return $this->ask("بنظرت " . $this->teams[0] . "چندتا گل میزنه؟", function (Answer $result_one)
+        return $this->ask("بنظرت " . $this->teams[0] . " چندتا گل میزنه؟", function (Answer $result_one)
         {
             $this->result_one = $result_one->getText();
             
@@ -107,6 +104,6 @@ class MakeBetConversation extends Conversation
      */
     public function run()
     {
-        return $this->askMatch();
+        return $this->init();
     }
 }
