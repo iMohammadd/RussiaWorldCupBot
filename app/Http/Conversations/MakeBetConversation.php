@@ -37,11 +37,11 @@ class MakeBetConversation extends Conversation
         $this->user = "none";
         $this->id = $this->bot->getUser()->getId();
 
-        /*$this->profile = Profile::firstOrCreate([
+        $this->profile = Profile::firstOrCreate([
             'name'  => $this->name,
             'user'  => $this->user,
             'chat_id'   => $this->id
-        ]);*/
+        ]);
 
 
         $matchs = Match::all();
@@ -67,7 +67,7 @@ class MakeBetConversation extends Conversation
 
     public function askResultOne()
     {
-        return $this->ask("پیش‌بینی میکنی  $this->teams[0] چنتا گل بزنه?", function (Answer $result_one)
+        return $this->ask("بنظرت " . $this->teams[0] . "چندتا گل میزنه؟", function (Answer $result_one)
         {
             $this->result_one = $result_one->getText();
             
@@ -77,7 +77,7 @@ class MakeBetConversation extends Conversation
 
     public function askResultTwo()
     {
-        return $this->ask("$this->teams[1] چطور؟", function (Answer $result_two)
+        return $this->ask($this->teams[1] . " چطور؟", function (Answer $result_two)
         {
             $this->result_two = $result_two->getText();
 
@@ -87,11 +87,11 @@ class MakeBetConversation extends Conversation
 
     public function submitBet()
     {
-        /*$this->profile->bet->create([
+        $this->profile->bet->create([
             'match_id'  =>  $this->match_id,
             'result_one'    =>  $this->result_one,
             'result_two'    =>  $this->result_two
-        ]);*/
+        ]);
 
         return $this->say("ثبت شد، با /Start بازم شرکت کن");
     }
