@@ -13,10 +13,13 @@ class MakeBetConversation extends Conversation
     public function register_profile()
     {
 
-        $user = $this->bot->getUsername();
-        $id = $this->bot->getId();
 
-        $this->reply("hi " . $user . " " . $id);
+
+        $this->ask("hi bro", function (Answer $answer) {
+            $user = $this->bot->getUsername();
+            $id = $this->bot->getId();
+            $this->bot->reply("hi " . $user . " " . $id);
+        });
         /*Profile::firstOrCreate([
             'user'  => $user,
             'chat_id'   => $id
