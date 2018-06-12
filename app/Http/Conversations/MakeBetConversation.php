@@ -52,9 +52,7 @@ class MakeBetConversation extends Conversation
         $question = Question::create("یه مسابقه انتخاب کن")
             ->fallback("we have an error :(")
             ->callbackId("ask_match")
-            ->addButtons([
-                $this->matches
-            ]);
+            ->addButtons($this->matches);
         
         return $this->ask($question, function (Answer $answer) {
             if ($answer->isInteractiveMessageReply()) {
