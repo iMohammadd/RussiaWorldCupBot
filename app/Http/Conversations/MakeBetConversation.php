@@ -92,7 +92,7 @@ class MakeBetConversation extends Conversation
     public function submitBet()
     {
         Bet::create([
-            'profile'   =>  $this->profile->id,
+            'profile_id'   =>  $this->profile->id,
             'match_id'  =>  $this->match->id,
             'result_one'    =>  $this->result_one,
             'result_two'    =>  $this->result_two
