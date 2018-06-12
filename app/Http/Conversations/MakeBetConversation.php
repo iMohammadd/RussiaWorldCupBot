@@ -14,9 +14,9 @@ class MakeBetConversation extends Conversation
 
     public $name, $user, $id;
     public $profile;
-    public $matches, $match_id;
+    public $matches = [], $match_id;
     
-    public $teams;
+    public $teams = [];
     public $result_one, $result_two;
 
     public function register_profile()
@@ -36,20 +36,20 @@ class MakeBetConversation extends Conversation
         $this->user = "none";
         $this->id = $this->bot->getUser()->getId();
 
-        $this->profile = Profile::firstOrCreate([
+        /*$this->profile = Profile::firstOrCreate([
             'name'  => $this->name,
             'user'  => $this->user,
             'chat_id'   => $this->id
-        ]);
+        ]);*/
 
 
         $matchs = Match::all();
 
         foreach ($matchs as $match) {
-            $this->matches[] = Button::create("$match->team_one - $match->team_two")->value($match->id);
+            $this->matches[] = Button::create($match->team_one . " - " . $match->team_two)->value($match->id);
         }
         
-        $question = Question::create("Select a Match")
+        $question = Question::create("یه مسابقه انتخاب کن")
             ->fallback("we have an error :(")
             ->callbackId("ask_match")
             ->addButtons([
@@ -68,7 +68,7 @@ class MakeBetConversation extends Conversation
 
     public function askResultOne()
     {
-        return $this->ask("Number of $this->teams[0] Goal?", function (Answer $result_one)
+        return $this->ask("پیش‌بینی میکنی  $this->teams[0] چنتا گل بزنه?", function (Answer $result_one)
         {
             $this->result_one = $result_one->getText();
             
@@ -78,7 +78,7 @@ class MakeBetConversation extends Conversation
 
     public function askResultTwo()
     {
-        return $this->ask("Number of $this->teams[1] Goal?", function (Answer $result_two)
+        return $this->ask("$this->teams[1] چطور؟", function (Answer $result_two)
         {
             $this->result_two = $result_two->getText();
 
@@ -88,13 +88,13 @@ class MakeBetConversation extends Conversation
 
     public function submitBet()
     {
-        $this->profile->bet->create([
+        /*$this->profile->bet->create([
             'match_id'  =>  $this->match_id,
             'result_one'    =>  $this->result_one,
             'result_two'    =>  $this->result_two
-        ]);
+        ]);*/
 
-        return $this->say("Thanks, you can Make bet again with /Start");
+        return $this->say("ثبت شد، با /Start بازم شرکت کن");
     }
     /**
      * Start the conversation.
