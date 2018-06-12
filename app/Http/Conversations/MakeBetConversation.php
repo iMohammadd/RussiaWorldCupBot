@@ -95,7 +95,7 @@ class MakeBetConversation extends Conversation
             'result_two'    =>  $this->result_two
         ]);
 
-        return $this->say("ثبت شد، با /Start بازم شرکت کن");
+        return $this->say("ثبت شد، با /start بازم شرکت کن");
     }
     /**
      * Start the conversation.
