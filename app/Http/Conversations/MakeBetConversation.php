@@ -15,7 +15,7 @@ class MakeBetConversation extends Conversation
 
     public $name, $user, $id;
     public $profile;
-    public $matches = [], $match_id;
+    public $matches = [], $match;
     
     public $teams = [];
     public $result_one, $result_two;
@@ -57,8 +57,11 @@ class MakeBetConversation extends Conversation
         
         return $this->ask($question, function (Answer $answer) {
             if ($answer->isInteractiveMessageReply()) {
-                $this->teams[] = explode(" - ", $answer->getText());
-                $this->match_id = $answer->getValue();
+
+                $this->match = Match::findOrFail($answer->getValue());
+                $this->teams[0] = Team::findOrFail($this->match->team_one)->name;
+                $this->teams[1] = Team::findOrFail($this->match->team_two)->name;
+
 
                 $this->askResultOne();
             }
@@ -88,7 +91,7 @@ class MakeBetConversation extends Conversation
     public function submitBet()
     {
         $this->profile->bet->create([
-            'match_id'  =>  $this->match_id,
+            'match_id'  =>  $this->match->id,
             'result_one'    =>  $this->result_one,
             'result_two'    =>  $this->result_two
         ]);
