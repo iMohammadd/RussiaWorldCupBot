@@ -16,7 +16,7 @@ class MakeBetConversation extends Conversation
         $user = $this->bot->getUsername();
         $id = $this->bot->getId();
 
-        $this->bot->reply("hi " . $user . " " . $id);
+        $this->reply("hi " . $user . " " . $id);
         /*Profile::firstOrCreate([
             'user'  => $user,
             'chat_id'   => $id
