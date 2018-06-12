@@ -4,6 +4,25 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Match
+ *
+ * @property int $id
+ * @property int $team_one
+ * @property int $team_two
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
+ * @property string $start_at
+ * @property string $time
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Match whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Match whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Match whereStartAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Match whereTeamOne($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Match whereTeamTwo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Match whereTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Match whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Match extends Model
 {
     protected $fillable = ['start_at', 'time'];
