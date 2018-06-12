@@ -32,9 +32,9 @@ class MakeBetConversation extends Conversation
 
     public function askMatch()
     {
-        $this->name = $this->bot->getUser()->getFirstName();
+        //$this->name = $this->bot->getUser()->getFirstName();
         //$this->user = $this->bot->getUser()->getUsername();
-        $this->id = $this->bot->getUser()->getId();
+        //$this->id = $this->bot->getUser()->getId();
 
         /*$this->profile = Profile::firstOrCreate([
             'name'  => $this->name,
@@ -104,6 +104,6 @@ class MakeBetConversation extends Conversation
      */
     public function run()
     {
-        $this->askMatch();
+        return $this->askMatch();
     }
 }
