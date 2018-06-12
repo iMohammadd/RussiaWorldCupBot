@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -36,4 +37,12 @@ class Match extends Model
     {
         return $this->belongsTo('App\Team', 'team_two', 'id');
     }*/
+
+    public function scopeActive($query)
+    {
+        $date = Carbon::now()->toDateString();
+        $time = Carbon::now()->toTimeString();
+
+        return $query->where('start_at', '>=', $date)->where('time', '>=', $time);
+    }
 }
