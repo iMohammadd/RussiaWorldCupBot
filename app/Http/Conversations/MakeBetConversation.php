@@ -47,7 +47,7 @@ class MakeBetConversation extends Conversation
         $matchs = Match::all();
 
         foreach ($matchs as $match) {
-            $this->matches[] = Button::create(Team::findOrFail($match->team_one) . " - " . Team::findOrFail($match->team_two))->value($match->id);
+            $this->matches[] = Button::create(Team::findOrFail($match->team_one)->name . " - " . Team::findOrFail($match->team_two)->name)->value($match->id);
         }
         
         $question = Question::create("یه مسابقه انتخاب کن")
