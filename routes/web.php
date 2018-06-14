@@ -11,6 +11,9 @@
 |
 */
 
+use App\Match;
+use Carbon\Carbon;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -21,4 +24,15 @@ Route::get('/botman/tinker', 'BotManController@tinker');
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
+});
+
+Route::get('/schedule', function () {
+    $matchs = [];
+    foreach (Match::all() as $item) {
+        if (strtotime($item->start_at . " " . $item->time) >= strtotime(Carbon::now()->toDateTimeString()) ) {
+            $matchs[] = $item;
+        }
+    }
+
+    return $matchs;
 });

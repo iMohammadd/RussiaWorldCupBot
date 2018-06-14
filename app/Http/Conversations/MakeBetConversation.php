@@ -10,6 +10,7 @@ use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 use BotMan\BotMan\Messages\Outgoing\Question;
+use Carbon\Carbon;
 
 class MakeBetConversation extends Conversation
 {
@@ -42,7 +43,13 @@ class MakeBetConversation extends Conversation
 
     public function askMatch()
     {
-        $matchs = Match::all();
+        $matchs = [];
+        foreach (Match::all() as $item) {
+            if (strtotime($item->start_at . " " . $item->time) >= strtotime(Carbon::now()->toDateTimeString()) ) {
+                $matchs[] = $item;
+            }
+        }
+
 
         foreach ($matchs as $match) {
             $this->matches[] = Button::create(Team::findOrFail($match->team_one)->name . " - " . Team::findOrFail($match->team_two)->name)->value($match->id);
