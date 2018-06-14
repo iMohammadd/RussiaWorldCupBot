@@ -22,6 +22,13 @@ class MakeBetConversation extends Conversation
     public $teams = [];
     public $result_one, $result_two;
 
+    public $keyboard = [
+        ['1', '2', '3'],
+        ['4', '5', '6'],
+        ['7', '8', '9'],
+        ['0']
+    ];
+
     public function init()
     {
         $this->name = $this->bot->getUser()->getFirstName();
@@ -80,7 +87,13 @@ class MakeBetConversation extends Conversation
             $this->result_one = $result_one->getText();
             
             $this->askResultTwo();
-        });
+        }, [
+            'reply_markup' => json_encode([
+                'keyboard' => $this->keyboard,
+                'one_time_keyboard' => true,
+                'resize_keyboard' => true
+            ])
+        ]);
     }
 
     public function askResultTwo()
@@ -90,7 +103,13 @@ class MakeBetConversation extends Conversation
             $this->result_two = $result_two->getText();
 
             $this->submitBet();
-        });
+        }, [
+            'reply_markup' => json_encode([
+                'keyboard' => $this->keyboard,
+                'one_time_keyboard' => true,
+                'resize_keyboard' => true
+            ])
+        ]);
     }
 
     public function submitBet()
